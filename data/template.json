@@ -1,0 +1,405 @@
+{
+    "common": {
+        "globalUI": {
+            "loadingText": "Loading WedBliss Experience...",
+            "notFoundText": "Page Not Found"
+        },
+        "Footer": {
+            "logo": {
+                "src": "/main logo/logo.png",
+                "alt": "SecureNet Cyber Security Solutions"
+            },
+            "description": "Your trusted partner in cybersecurity, offering cutting-edge solutions to defend against evolving threats.",
+            "locationTitle": "Our Location",
+            "location": "3170 Rosewood Lane Unit 200, Beverly Hills, CA 90210",
+            "contactTitle": "Contact Information",
+            "phone": "+1 (000) 000-0000",
+            "email": "info@xyz.com",
+            "copyright": "Copyright © 2025",
+            "brandName": "SecureNet",
+            "rights": "All Rights Reserved. Powered by Lestow.",
+            "links": [
+                {
+                    "label": "Home",
+                    "href": "#home"
+                },
+                {
+                    "label": "About Us",
+                    "href": "#about"
+                },
+                {
+                    "label": "Services",
+                    "href": "#services"
+                },
+                {
+                    "label": "Why Choose Us",
+                    "href": "#why-choose-us"
+                },
+                {
+                    "label": "Contact Us",
+                    "href": "#contact"
+                }
+            ]
+        }
+    },
+    "categories": {
+        "WedBliss": {
+            "sections": {
+                "Header": {
+                    "variants": {
+                        "WedBlissHeader2": {
+                            "logo": "/main logo/logo.png",
+                            "logoAlt": "SecureNet Cybersecurity Logo",
+                            "navLinks": [
+                                {
+                                    "id": "nl-home",
+                                    "label": "Home",
+                                    "url": "#home"
+                                },
+                                {
+                                    "id": "nl-about",
+                                    "label": "About Us",
+                                    "url": "#about"
+                                },
+                                {
+                                    "id": "nl-services",
+                                    "label": "Our Services",
+                                    "url": "#services"
+                                },
+                                {
+                                    "id": "nl-gallery",
+                                    "label": "Why Choose Us",
+                                    "url": "#why-choose-us"
+                                },
+                                {
+                                    "id": "nl-faq",
+                                    "label": "Testimonials",
+                                    "url": "#testimonials"
+                                }
+                            ],
+                            "contactButton": {
+                                "text": "Get a Free Consultation",
+                                "url": "#contact"
+                            }
+                        }
+                    }
+                },
+                "Hero": {
+                    "variants": {
+                        "WedBlissHero2": {
+                            "subtitle": "End-to-End Cybersecurity for Modern Businesses ",
+                            "title1": "Stay Protected in a",
+                            "title2": "Connected World",
+                            "description": "We deliver advanced, reliable, and proactive cybersecurity solutions to safeguard your data, systems, and business from evolving digital threats.",
+                            "image1": "/other/cybersecurity_hero.webp",
+                            "cta1": {
+                                "href": "#services",
+                                "label": "Our Services"
+                            },
+                            "cta2": {
+                                "href": "#contact",
+                                "label": "Contact Us"
+                            }
+                        }
+                    }
+                },
+                "AboutUs": {
+                    "variants": {
+                        "WedBlissAboutUs2": {
+                            "subtitle": "ABOUT US",
+                            "title1": "Securing Businesses in a",
+                            "title2": " Digital-First World",
+                            "description1": [
+                                "We are a team of cybersecurity experts dedicated to protecting businesses from evolving cyber threats. With innovative solutions, proactive monitoring, and a customer-focused approach, we help organizations stay secure, compliant, and future-ready."
+                            ],
+                            "imageMain": "/other/about.jpg",
+                            "imageAlt": ""
+                        }
+                    }
+                },
+                "Services": {
+                    "variants": {
+                        "WedBlissServices2": {
+                            "subtitle": "OUR SERVICES",
+                            "title1": "Comprehensive Cybersecurity",
+                            "title2": "Services for Maximum Protection",
+                            "description": "",
+                            "services": [
+                                {
+                                    "id": "s1",
+                                    "title": "Threat Detection & Prevention",
+                                    "icon": "threat-protection",
+                                    "url": "#contact"
+                                },
+                                {
+                                    "id": "s2",
+                                    "title": "Endpoint Security Solutions",
+                                    "icon": "endpoint-security",
+                                    "url": "#contact"
+                                },
+                                {
+                                    "id": "s3",
+                                    "title": "Network Defense & Firewalls",
+                                    "icon": "network-firewall",
+                                    "url": "#services"
+                                },
+                                {
+                                    "id": "s4",
+                                    "title": "Data Encryption & Privacy",
+                                    "icon": "data-encryption",
+                                    "url": "#contact"
+                                },
+                                {
+                                    "id": "s5",
+                                    "title": "Cloud Security & Complince",
+                                    "icon": "cloud-security",
+                                    "url": "#contact"
+                                },
+                                {
+                                    "id": "s6",
+                                    "title": "Incident Response & Recovery",
+                                    "icon": "incident-recovery",
+                                    "url": "#contact"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "WhatWeDo": {
+                    "variants": {
+                        "WedBlissWhatWeDo2": {
+                            "subtitle": "WHY CHOOSE US",
+                            "title1": "Why Choose",
+                            "title2": "CyberSec?",
+                            "title3": "Your Trusted Security Partner",
+                            "description": "Because your security is our priority. We deliver advanced, reliable, and scalable cybersecurity solutions to keep your business protected, always.",
+                            "image": {
+                                "src": "/other/why_choose.jpg",
+                                "alt": ""
+                            },
+                            "cta": {
+                                "label": "Get Started",
+                                "href": "#contact"
+                            },
+                            "features": [
+                                {
+                                    "id": "p1",
+                                    "icon": "FaHeadset",
+                                    "title": "24/7 Monitoring & Support",
+                                    "description": "Round-the-clock monitoring, rapid alerts, and expert support when you need it most."
+                                },
+                                {
+                                    "id": "p2",
+                                    "icon": "FaShieldAlt",
+                                    "title": "Proven Track Record",
+                                    "description": "Cutting-edge technology and tailored security solutions built around your business needs."
+                                },
+                                {
+                                    "id": "p3",
+                                    "icon": "FaHeadset",
+                                    "title": "Cutting-Edge Technology"
+                                },
+                                {
+                                    "id": "p4",
+                                    "icon": "FaShieldAlt",
+                                    "title": "Tailored Solutions"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Testimonials": {
+                    "variants": {
+                        "WedBlissTestimonials2": {
+                            "subtitle": "Client Testimonials",
+                            "title1": "What Our Clients Say About",
+                            "title2": "Our Cybersecurity Services",
+                            "trustedText": "Trusted by",
+                            "trustedCount": "1,000+ Businesses",
+                            "avatars": [
+                                "/other/profile-1.png",
+                                "/other/profile-2.png",
+                                "/other/profile-3.png"
+                            ],
+                            "rating": {
+                                "score": "4.9",
+                                "totalStars": 5,
+                                "reviews": "(500+ Reviews)",
+                                "caption": "Client Satisfaction Rate",
+                                "image": "/other/test.png",
+                                "alt": ""
+                            },
+                            "items": [
+                                {
+                                    "id": 1,
+                                    "name": "Michael Carter",
+                                    "designation": "CTO, NexaTech Solutions",
+                                    "image": "/other/profile-3.png",
+                                    "review": "Their cybersecurity solutions have significantly strengthened our security posture. The team is highly professional, responsive, and truly understands our business needs."
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "Sarah Johnson",
+                                    "designation": "IT Director, GlobalTech",
+                                    "image": "/other/profile-2.png",
+                                    "review": "The security team helped us improve our infrastructure and protect our critical business systems. Their proactive approach and ongoing support have been excellent."
+                                },
+                                {
+                                    "id": 3,
+                                    "name": "David Wilson",
+                                    "designation": "CEO, SecureCloud Systems",
+                                    "image": "/other/profile-1.png",
+                                    "review": "We are extremely satisfied with the cybersecurity services. Their monitoring, threat prevention, and technical expertise have given our team greater confidence."
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Faq": {
+                    "variants": {
+                        "WedBlissFaq2": {
+                            "subtitle": "Frequently Asked Questions",
+                            "title1": "Have Questions?",
+                            "title2": "We’ve Got Answers",
+                            "description": "Find quick answers to common questions about our cybersecurity services, solutions, and support.",
+                            "image": "/other/faq.png",
+                            "imageAlt": "Cybersecurity laptop with glowing digital shield and network security icons",
+                            "items": [
+                                {
+                                    "id": "faq1",
+                                    "question": "What cybersecurity services do you offer?",
+                                    "answer": "We offer a comprehensive range of cybersecurity services, including threat detection & response, network security, data protection, cloud security, and security compliance."
+                                },
+                                {
+                                    "id": "faq2",
+                                    "question": "How do you protect our business from cyber threats?",
+                                    "answer": "We use advanced threat monitoring, firewalls, endpoint protection, vulnerability assessments, and proactive security strategies to detect and prevent potential attacks."
+                                },
+                                {
+                                    "id": "faq3",
+                                    "question": "Do you provide 24/7 monitoring and support?",
+                                    "answer": "Yes, our cybersecurity solutions include continuous monitoring, real-time threat detection, and technical support to help keep your business protected around the clock."
+                                },
+                                {
+                                    "id": "faq4",
+                                    "question": "Can you help with compliance and security standards?",
+                                    "answer": "Yes, we help businesses implement security best practices and work toward compliance with applicable standards and frameworks, including ISO 27001, GDPR, and other industry-specific requirements."
+                                },
+                                {
+                                    "id": "faq5",
+                                    "question": "Is your solution suitable for small and medium businesses?",
+                                    "answer": "Absolutely. We offer scalable cybersecurity solutions designed for startups, small businesses, and growing enterprises, based on their security needs and budgets."
+                                }
+                            ]
+                        }
+                    }
+                },
+                "Contact": {
+                    "variants": {
+                        "WedBlissContact2": {
+                            "subtitle": "Contact Us",
+                            "title1": "Ready to Get Started?",
+                            "title2": "Drop",
+                            "title3": "Us a Line",
+                            "description": "Have questions or ready to get started? Our team is here to help. Contact us today to discuss your cybersecurity needs, request a consultation, or get a custom quote.",
+                            "details": [
+                                {
+                                    "id": "address",
+                                    "title": "Address",
+                                    "value": "3170 Rosewood Lane Unit 200, Beverly Hills, CA 90210",
+                                    "icon": "location",
+                                    "href": ""
+                                },
+                                {
+                                    "id": "phone",
+                                    "title": "Call Us",
+                                    "value": "+1 (000) 000-0000",
+                                    "icon": "phone",
+                                    "href": "tel:+10000000000"
+                                },
+                                {
+                                    "id": "email",
+                                    "title": "Email Us",
+                                    "value": "info@xyz.com",
+                                    "icon": "email",
+                                    "href": "mailto:info@xyz.com"
+                                }
+                            ],
+                            "form": {
+                                "title1": "Request A",
+                                "title2": "Quote",
+                                "fields": {
+                                    "name": {
+                                        "label": "Name (Required) *",
+                                        "placeholder": "Enter your name"
+                                    },
+                                    "phone": {
+                                        "label": "Number (Required) *",
+                                        "placeholder": "Enter your phone number"
+                                    },
+                                    "email": {
+                                        "label": "Email (Required) *",
+                                        "placeholder": "Enter your email"
+                                    },
+                                    "company": {
+                                        "label": "Company (Optional)",
+                                        "placeholder": "Enter company name"
+                                    },
+                                    "message": {
+                                        "label": "Message (Optional)",
+                                        "placeholder": "Describe your inquiry"
+                                    }
+                                },
+                                "privacyText": "I agree with the site privacy policy.",
+                                "privacyHref": "/privacy-policy",
+                                "buttonText": "Submit Now",
+                                "successMessage": "Your inquiry has been submitted successfully.",
+                                "errorMessage": "Unable to send your inquiry. Please try again."
+                            }
+                        }
+                    }
+                }
+            },
+            "templateComponents": {
+                "shared": {
+                    "Header": "WedBlissHeader2",
+                    "Footer": "WedBlissFooter2"
+                },
+                "pages": {
+                    "home": {
+                        "components": [
+                            {
+                                "key": "HeroSection",
+                                "component": "WedBlissHero2"
+                            },
+                            {
+                                "key": "AboutUs",
+                                "component": "WedBlissAboutUs2"
+                            },
+                            {
+                                "key": "Services",
+                                "component": "WedBlissServices2"
+                            },
+                            {
+                                "key": "WhatWeDo",
+                                "component": "WedBlissWhatWeDo2"
+                            },
+                            {
+                                "key": "Testimonials",
+                                "component": "WedBlissTestimonials2"
+                            },
+                            {
+                                "key": "Faq",
+                                "component": "WedBlissFaq2"
+                            },
+                            {
+                                "key": "Contact",
+                                "component": "WedBlissContact2"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

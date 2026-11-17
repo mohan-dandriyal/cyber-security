@@ -1,0 +1,16 @@
+.icon {
+  display: inline-flex;
+  width: 88px;
+  height: 88px;
+  color: #00e5f0;
+  transition: color 300ms ease;
+}
+
+:global(.service-card):hover .icon,
+:global(.service-card):focus-within .icon {
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .icon { width: 104px; height: 104px; }
+}
