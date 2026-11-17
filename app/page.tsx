@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flow-root">
+      <main className="landing-page flow-root">
         <HeroSection />
 
         <AboutSection />

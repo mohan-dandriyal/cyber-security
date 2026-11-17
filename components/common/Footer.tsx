@@ -48,7 +48,7 @@ export default function Footer() {
   return (
     <footer className="relative isolate overflow-hidden font-poppins text-white"
       style={{
-        background: "linear-gradient(103deg, #0a2041 21%, #0055c9)"
+        background: "linear-gradient(103deg, #0a2041c9 21%, #0055c9c4)"
       }}>
 
       <Container>

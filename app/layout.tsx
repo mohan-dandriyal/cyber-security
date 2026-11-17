@@ -9,6 +9,7 @@ import {
 
 import "./globals.css";
 import MotionPreferences from "@/components/common/MotionPreferences";
+import PageEffects from "@/components/common/PageEffects";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,7 +54,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <MotionPreferences>{children}</MotionPreferences>
+        <MotionPreferences>
+          {children}
+          <PageEffects />
+        </MotionPreferences>
       </body>
     </html>
   );
