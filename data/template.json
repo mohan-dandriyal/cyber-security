@@ -75,6 +75,11 @@
                                     "id": "nl-faq",
                                     "label": "Testimonials",
                                     "url": "#testimonials"
+                                },
+                                 {
+                                    "id": "faq",
+                                    "label": "FAQs",
+                                    "url": "#faq"
                                 }
                             ],
                             "contactButton": {

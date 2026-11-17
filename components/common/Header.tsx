@@ -5,7 +5,7 @@
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     FaBars,
     FaTimes,
@@ -22,7 +22,8 @@ export default function Header() {
     const reduceMotion = useReducedMotion();
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [active, setActive] = useState(header.navLinks[0]?.id ?? "");
+    const [active, setActive] = useState(header.navLinks[0]?.url ?? "#home");
+    const headerRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const desktop = window.matchMedia("(min-width: 1280px)");
@@ -42,24 +43,15 @@ export default function Header() {
         const onScroll = () => {
             setScrolled(window.scrollY > 20);
 
-            const sections = header.navLinks
-                .map((item) => ({
-                    id: item.id,
-                    element: document.getElementById(item.url.slice(1)),
-                }))
-                .filter((item) => item.element);
+            const activationLine = (headerRef.current?.getBoundingClientRect().height ?? 100) + Math.min(120, window.innerHeight * 0.15);
+            const section = Array.from(document.querySelectorAll<HTMLElement>("main > section[id]"))
+                .find((element) => {
+                    const bounds = element.getBoundingClientRect();
+                    return bounds.top <= activationLine && bounds.bottom > activationLine;
+                });
 
-            let current = header.navLinks[0]?.id ?? "";
-
-            sections.forEach((section) => {
-                if (
-                    section.element!.getBoundingClientRect().top <= 120
-                ) {
-                    current = section.id;
-                }
-            });
-
-            setActive(current);
+            // Unlisted sections, including Contact, must not leave FAQs active.
+            setActive(section ? `#${section.id}` : "");
         };
 
         onScroll();
@@ -68,7 +60,16 @@ export default function Header() {
             passive: true,
         });
 
-        return () => window.removeEventListener("scroll", onScroll);
+        window.addEventListener("resize", onScroll);
+        const observer = new ResizeObserver(onScroll);
+        const main = document.querySelector("main");
+        if (main) observer.observe(main);
+
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+            observer.disconnect();
+        };
     }, []);
 
     useEffect(() => {
@@ -81,6 +82,7 @@ export default function Header() {
 
     return (
         <header
+            ref={headerRef}
             className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled
                 ? "border-b border-cyan-400/10 bg-[#00152c]/95 shadow-lg backdrop-blur-xl"
                 : "bg-transparent"
@@ -111,9 +113,9 @@ export default function Header() {
                             <a
                                 key={item.id}
                                 href={item.url}
-                                aria-current={active === item.id ? "location" : undefined}
-                                onClick={() => setActive(item.id)}
-                                className={`rounded-full px-3 py-2 text-[15px] font-normal transition-all duration-300 ${active === item.id
+                                aria-current={active === item.url ? "location" : undefined}
+                                onClick={() => setActive(item.url)}
+                                className={`rounded-full px-3 py-2 text-[15px] font-normal transition-all duration-300 ${active === item.url
                                     ? "bg-cyan-400/10 text-cyan-400"
                                     : "text-slate-200 hover:bg-white/5 hover:text-cyan-400"
                                     }`}
@@ -159,12 +161,12 @@ export default function Header() {
                             <a
                                 key={item.id}
                                 href={item.url}
-                                aria-current={active === item.id ? "location" : undefined}
+                                aria-current={active === item.url ? "location" : undefined}
                                 onClick={() => {
-                                    setActive(item.id);
+                                    setActive(item.url);
                                     setMenuOpen(false);
                                 }}
-                                className={`rounded-lg px-4 py-3 text-sm transition-colors ${active === item.id
+                                className={`rounded-lg px-4 py-3 text-sm transition-colors ${active === item.url
                                     ? "bg-cyan-400/10 text-cyan-400"
                                     : "text-white hover:bg-white/5"
                                     }`}
