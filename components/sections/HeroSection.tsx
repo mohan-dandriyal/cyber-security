@@ -29,14 +29,14 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative isolate flex min-h-[100vh] items-center justify-center overflow-hidden border-b border-cyan-400/10 bg-[#020e24] py-14 font-poppins"
+      className="relative isolate flex sm:min-h-[100vh] min-h-[80vh] items-center justify-center overflow-hidden border-b border-cyan-400/10 bg-[#020e24] py-14 font-poppins"
     >
 
       <HeroBackDesignPattern />
 
       {/* Hero content */}
       <Container>
-        <div className="relative z-10 pt-20 text-center ">
+        <div className="relative z-10 text-center pt-8">
 
           {/* Subtitle */}
           <motion.div {...reveal(0.1)}>
