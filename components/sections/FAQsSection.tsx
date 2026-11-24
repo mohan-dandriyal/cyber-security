@@ -7,7 +7,6 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useState } from "react";
 import Image from "next/image";
 import {
-    AnimatePresence,
     motion, 
     type Variants,
 } from "framer-motion";
@@ -148,13 +147,7 @@ export default function FAQSection() {
                 </motion.div>
 
                 {/* Right FAQ accordion */}
-                <motion.div
-                    variants={containerVariants}
-                    initial={reduceMotion ? false : "hidden"}
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    className="space-y-5"
-                >
+                <div className="space-y-5">
                     {content.items.map((item) => {
                         const isOpen = activeId === item.id;
 
@@ -162,6 +155,10 @@ export default function FAQSection() {
                             <motion.div
                                 key={item.id}
                                 variants={itemVariants}
+                                initial={reduceMotion ? false : "hidden"}
+                                animate={reduceMotion ? "visible" : undefined}
+                                whileInView={reduceMotion ? undefined : "visible"}
+                                viewport={{ once: true, amount: 0.15 }}
                                 className={`overflow-hidden rounded-[20px] border-2 transition-colors duration-300 ${isOpen
                                     ? "border-[#00e5f0] bg-[#04233e]"
                                     : "border-slate-500/50 bg-[#031a31] hover:border-cyan-400/50"
@@ -179,61 +176,28 @@ export default function FAQSection() {
                                         {item.question}
                                     </span>
 
-                                    {/* Plus/minus icon */}
-                                    <motion.span
-                                        animate={{
-                                            rotate: isOpen ? 180 : 0,
-                                        }}
-                                        transition={{
-                                            duration: reduceMotion ? 0 : 0.3,
-                                        }}
+                                    <span
+                                        aria-hidden="true"
                                         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg transition-colors duration-300 ${isOpen
                                             ? "bg-[#00e5f0] text-[#001329]"
                                             : "border-2 border-white/80 text-white"
                                             }`}
                                     >
                                         {isOpen ? <FaMinus /> : <FaPlus />}
-                                    </motion.span>
+                                    </span>
                                 </button>
 
-                                {/* Animated answer */}
-                                <AnimatePresence initial={false}>
-                                    {isOpen && (
-                                        <motion.div
-                                            id={`faq-answer-${item.id}`}
-                                            key="answer"
-                                            initial={
-                                                reduceMotion
-                                                    ? { opacity: 0 }
-                                                    : { height: 0, opacity: 0 }
-                                            }
-                                            animate={{
-                                                height: "auto",
-                                                opacity: 1,
-                                            }}
-                                            exit={
-                                                reduceMotion
-                                                    ? { opacity: 0 }
-                                                    : { height: 0, opacity: 0 }
-                                            }
-                                            transition={{
-                                                duration: reduceMotion ? 0 : 0.35,
-                                                ease: EASE,
-                                            }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="mx-6 border-t border-cyan-400/40 px-0 pb-7 pt-5 sm:mx-8">
-                                                <p className="text-sm leading-[1.85] text-slate-300 sm:text-[15px] lg:text-base">
-                                                    {item.answer}
-                                                </p>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                                <div id={`faq-answer-${item.id}`} hidden={!isOpen}>
+                                    <div className="mx-6 border-t border-cyan-400/40 pb-7 pt-5 sm:mx-8">
+                                        <p className="text-sm leading-[1.85] text-slate-300 sm:text-[15px] lg:text-base">
+                                            {item.answer}
+                                        </p>
+                                    </div>
+                                </div>
                             </motion.div>
                         );
                     })}
-                </motion.div>
+                </div>
             </div>
             </Container>
         </section>

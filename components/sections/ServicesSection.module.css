@@ -14,3 +14,7 @@
 @media (min-width: 640px) {
   .icon { width: 104px; height: 104px; }
 }
+
+@media (max-width: 639px) {
+  .title { font-size: clamp(0.875rem, 4.5vw, 1.5rem); }
+}

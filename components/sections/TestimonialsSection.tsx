@@ -3,21 +3,20 @@
 
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { AnimatedNumber } from "../common/AnimatedContent";
 import ClientAvatar from "../common/ClientAvatar";
 import {
     AnimatePresence,
-    motion, 
+    motion,
+    useIsPresent,
     type Variants,
 } from "framer-motion";
 
 import {
     FaRegCommentDots,
     FaStar,
-    FaShieldAlt,
-    FaCheck,
     FaQuoteLeft,
     FaArrowLeft,
     FaArrowRight,
@@ -55,44 +54,79 @@ const fadeUp: Variants = {
     },
 };
 
+const slideVariants: Variants = {
+    enter: (direction: number) => ({ x: direction * 108 + "%" }),
+    active: { x: "0%" },
+    exit: (direction: number) => ({ x: direction * -108 + "%" }),
+};
+
+const reviewVariants: Variants = {
+    enter: { opacity: 0, y: 7 },
+    active: { opacity: 1, y: 0, transition: { duration: 0.3, delay: 0.08, ease: EASE } },
+};
+
+const authorVariants: Variants = {
+    enter: { opacity: 0, y: 5 },
+    active: { opacity: 1, y: 0, transition: { duration: 0.28, delay: 0.15, ease: EASE } },
+};
+
+function TestimonialContent({ testimonial, sizing = false, animateText = false }: {
+    testimonial: (typeof content.items)[number];
+    sizing?: boolean;
+    animateText?: boolean;
+}) {
+    const isPresent = useIsPresent();
+
+    return (
+        <div aria-hidden={sizing || !isPresent} className="flex h-full flex-col justify-between gap-4">
+            {/* Review */}
+            <motion.blockquote
+                variants={animateText ? reviewVariants : undefined}
+                className="text-sm leading-relaxed text-white sm:text-base lg:text-lg"
+            >
+                &ldquo;{testimonial.review}&rdquo;
+            </motion.blockquote>
+
+            {/* Author */}
+            <div className="flex items-center gap-3">
+                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#00e5f0] sm:h-14 sm:w-14">
+                    {!sizing && <ClientAvatar src={testimonial.image} name={testimonial.name} />}
+                </div>
+
+                <motion.div variants={animateText ? authorVariants : undefined}>
+                    <h4 className="font-montserrat text-base font-semibold text-white sm:text-lg">
+                        {testimonial.name}
+                    </h4>
+                    <p className="mt-1 text-sm text-slate-300 sm:text-[15px]">
+                        {testimonial.designation}
+                    </p>
+                </motion.div>
+            </div>
+        </div>
+    );
+}
+
 export default function TestimonialsSection() {
     const reduceMotion = useReducedMotion();
 
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [direction, setDirection] = useState(1);
-    const [paused, setPaused] = useState(false);
-
+    const [{ index, direction }, setSlide] = useState({ index: 0, direction: 1 });
     const testimonials = content.items;
     const total = testimonials.length;
-    const active = testimonials[activeIndex];
+    const active = testimonials[index];
+    const offsetDirection = reduceMotion ? 0 : direction;
 
     const changeSlide = (step: number) => {
-        if (total < 2) return;
-
-        setDirection(step > 0 ? 1 : -1);
-        setActiveIndex((prev) => (prev + step + total) % total);
+        setSlide((current) => ({
+            index: (current.index + step + total) % total,
+            direction: step,
+        }));
     };
-
-    // Auto slider
-    useEffect(() => {
-        if (paused || reduceMotion || total < 2) return;
-
-        const interval = window.setInterval(() => {
-            setDirection(1);
-            setActiveIndex((prev) => (prev + 1) % total);
-        }, 5500);
-
-        return () => window.clearInterval(interval);
-    }, [paused, reduceMotion, total]);
 
     return (
         <section
             id="testimonials"
             className="relative isolate overflow-hidden bg-[#00142c] py-14 font-poppins"
         >
-            {/* Background glow */}
-            {/* <div className="pointer-events-none absolute left-1/2 top-1/2 h-[650px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.025] blur-[120px]" /> */}
-
             <Container>
             <div className="relative z-10 mx-auto w-full">
 
@@ -102,7 +136,7 @@ export default function TestimonialsSection() {
                     initial={reduceMotion ? false : "hidden"}
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
-                    className="mb-14 flex flex-col justify-between gap-10 lg:flex-row lg:items-center"
+                    className="mb-9 flex flex-col justify-between gap-6 sm:mb-12 lg:flex-row lg:items-center"
                 >
                     {/* Left heading */}
                     <div className="max-w-[950px]">
@@ -154,7 +188,7 @@ export default function TestimonialsSection() {
                 </motion.div>
 
                 {/* Rating and testimonial */}
-                <div className="space-y-6 grid grid-cols-1 items-stretch gap-7 lg:grid-cols-[0.85fr_1.9fr] lg:gap-10">
+                <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-6 lg:grid-cols-[0.85fr_1.9fr] lg:gap-10">
 
                     {/* Rating card */}
                     <motion.div
@@ -166,14 +200,14 @@ export default function TestimonialsSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.85, ease: EASE }}
-                        className="flex min-h-[390px] flex-col items-center justify-center rounded-[30px] border-2 border-[#00e5f0] bg-gradient-to-br from-[#062b4c]/80 to-[#00142c] p-9 text-center"
+                        className="flex flex-col items-center justify-center rounded-[30px] border-2 border-[#00e5f0] bg-gradient-to-br from-[#062b4c]/80 to-[#00142c] p-5 text-center sm:p-6"
                     >
-                        <h3 className="font-montserrat text-[clamp(4rem,5vw,6rem)] font-bold leading-none text-white">
+                        <h3 className="font-montserrat text-[clamp(2.5rem,4vw,4.5rem)] font-bold leading-none text-white">
                             <AnimatedNumber value={content.rating.score} />
                         </h3>
 
                         {/* Stars */}
-                        <div className="mt-5 flex justify-center gap-2 text-2xl text-[#00e5f0] sm:text-2xl">
+                        <div className="mt-3 flex justify-center gap-2 text-2xl text-[#00e5f0] sm:text-2xl">
                             {Array.from({
                                 length: content.rating.totalStars,
                             }).map((_, index) => (
@@ -204,7 +238,7 @@ export default function TestimonialsSection() {
                             {content.rating.reviews}
                         </p>
 
-                        <div className="my-8 h-px w-full max-w-[300px] bg-[#00e5f0]/60" />
+                        <div className="my-4 h-px w-full max-w-[300px] bg-[#00e5f0]/60" />
 
                         {/* Satisfaction icon */}
                         <div className="relative flex items-center justify-center">
@@ -214,12 +248,12 @@ export default function TestimonialsSection() {
                                     alt={content.rating.alt}
                                     width={80}
                                     height={80}
-                                    className="h-auto w-50"
+                                    className="h-auto w-20 sm:w-24"
                                 />
                             </div>
                         </div>
 
-                        <p className="mt-5 max-w-[250px] font-montserrat text-xl font-semibold leading-snug text-white/90 sm:text-xl">
+                        <p className="mt-3 max-w-[250px] font-montserrat text-base font-semibold leading-snug text-white/90">
                             {content.rating.caption}
                         </p>
                     </motion.div>
@@ -238,105 +272,61 @@ export default function TestimonialsSection() {
                             delay: 0.15,
                             ease: EASE,
                         }}
-                        onMouseEnter={() => setPaused(true)}
-                        onMouseLeave={() => setPaused(false)}
-                        onFocusCapture={() => setPaused(true)}
-                        onBlurCapture={(event) => {
-                            if (!event.currentTarget.contains(event.relatedTarget)) {
-                                setPaused(false);
-                            }
-                        }}
-                        className="relative flex min-h-[390px] flex-col justify-between rounded-[30px] border-2 border-[#00e5f0] bg-gradient-to-br from-[#00142c] to-[#00142c] p-7 sm:p-10 lg:p-12"
+                        className="relative flex min-w-0 flex-col rounded-[30px] border-2 border-[#00e5f0] bg-gradient-to-br from-[#00142c] to-[#00142c] p-5 sm:p-7"
                     >
                         {/* Quote icon */}
-                        <div className="absolute -top-7 left-8 bg-[#00142c] px-4 text-4xl text-[#00e5f0] sm:left-12 sm:text-5xl">
+                        <div className="absolute -top-5 left-5 bg-[#00142c] px-3 text-3xl text-[#00e5f0] sm:left-7 sm:text-4xl">
                             <FaQuoteLeft />
                         </div>
 
-                        <div
-                            className="relative flex flex-1 flex-col justify-between overflow-hidden pt-7"
-                            aria-live="off"
-                        >
-                            <AnimatePresence mode="wait" initial={false}>
+                        <div className="relative flex-1 overflow-hidden">
+                            {/* Reserve the tallest slide so the arrows stay in place. */}
+                            <div aria-hidden="true" className="invisible grid pt-4">
+                                {testimonials.map((testimonial) => (
+                                    <div key={testimonial.id} className="col-start-1 row-start-1">
+                                        <TestimonialContent testimonial={testimonial} sizing />
+                                    </div>
+                                ))}
+                            </div>
+                            <AnimatePresence initial={false} custom={offsetDirection}>
                                 <motion.div
                                     key={active.id}
-                                    initial={
-                                        reduceMotion
-                                            ? { opacity: 0 }
-                                            : {
-                                                opacity: 0,
-                                                x: direction * 45,
-                                            }
-                                    }
-                                    animate={{
-                                        opacity: 1,
-                                        x: 0,
-                                    }}
-                                    exit={
-                                        reduceMotion
-                                            ? { opacity: 0 }
-                                            : {
-                                                opacity: 0,
-                                                x: direction * -45,
-                                            }
-                                    }
-                                    transition={{
-                                        duration: reduceMotion ? 0.1 : 0.45,
-                                        ease: EASE,
-                                    }}
-                                    className="flex h-full flex-col justify-between gap-10"
+                                    custom={offsetDirection}
+                                    variants={slideVariants}
+                                    initial="enter"
+                                    animate="active"
+                                    exit="exit"
+                                    transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.4, 0, 0.2, 1] }}
+                                    className="absolute inset-0 pt-4"
                                 >
-                                    {/* Review */}
-                                    <blockquote className="text-sm font-normal leading-[1.8] text-white sm:text-base lg:text-xl">
-                                        “{active.review}”
-                                    </blockquote>
-
-                                    {/* Author and navigation */}
-                                    <div className="flex flex-wrap items-end justify-between gap-6">
-                                        <div className="flex items-center gap-5">
-                                            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#00e5f0] sm:h-14 sm:w-14">
-                                                <ClientAvatar
-                                                    key={active.image}
-                                                    src={active.image}
-                                                    name={active.name}
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <h4 className="font-montserrat text-base font-semibold text-white sm:text-lg">
-                                                    {active.name}
-                                                </h4>
-                                                <p className="mt-1 text-sm text-slate-300 sm:text-[15px]">
-                                                    {active.designation}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* Slider buttons */}
-                                        <div className="flex items-center gap-3">
-                                            <button
-                                                type="button"
-                                                onClick={() => changeSlide(-1)}
-                                                disabled={total < 2}
-                                                aria-label="Previous testimonial"
-                                                className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-cyan-400/50 text-lg text-white transition-all hover:border-[#00e5f0] hover:bg-[#00e5f0] hover:text-[#001329] disabled:opacity-40 sm:h-14 sm:w-14"
-                                            >
-                                                <FaArrowLeft />
-                                            </button>
-
-                                            <button
-                                                type="button"
-                                                onClick={() => changeSlide(1)}
-                                                disabled={total < 2}
-                                                aria-label="Next testimonial"
-                                                className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-cyan-400/50 text-lg text-white transition-all hover:border-[#00e5f0] hover:bg-[#00e5f0] hover:text-[#001329] disabled:opacity-40 sm:h-14 sm:w-14"
-                                            >
-                                                <FaArrowRight />
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <TestimonialContent testimonial={active} animateText={!reduceMotion} />
                                 </motion.div>
                             </AnimatePresence>
+                        </div>
+                        <span className="sr-only" role="status">
+                            Testimonial {index + 1} of {total}: {active.name}
+                        </span>
+                        {/* Slider buttons */}
+                        <div className="mt-4 flex justify-end gap-2">
+                            <button
+                                type="button"
+                                onClick={() => changeSlide(-1)}
+                                disabled={total < 2}
+                                aria-label="Previous testimonial"
+                                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-cyan-400/50 text-lg text-white transition-colors hover:border-[#00e5f0] hover:bg-[#00e5f0] hover:text-[#001329] disabled:opacity-40"
+                            >
+                                <FaArrowLeft />
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => changeSlide(1)}
+                                disabled={total < 2}
+                                aria-label="Next testimonial"
+                                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-cyan-400/50 text-lg text-white transition-colors hover:border-[#00e5f0] hover:bg-[#00e5f0] hover:text-[#001329] disabled:opacity-40"
+                            >
+                                <FaArrowRight />
+                            </button>
                         </div>
                     </motion.div>
                 </div>

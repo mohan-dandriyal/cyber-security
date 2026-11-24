@@ -12,7 +12,7 @@ function splitWords(children: ReactNode): ReactNode {
   return Children.map(children, (child) => {
     if (typeof child === "string") {
       return child.split(/(\s+)/).map((word, index) =>
-        /^\s+$/.test(word) ? word : (
+        /^\s*$/.test(word) ? word : (
           <motion.span
             key={index}
             className="inline-block"
@@ -35,7 +35,7 @@ export function AnimatedText({ children }: { children: ReactNode }) {
   const reduced = useReducedMotion();
   return (
     <motion.span
-      className="animated-heading"
+      className="animated-heading block"
       initial={reduced ? false : "hidden"}
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}

@@ -23,16 +23,6 @@ import { Container } from "../layouts/layout";
 const footer = FooterData;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-};
-
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -53,22 +43,25 @@ export default function Footer() {
 
       <Container>
         <div className="relative z-10 pt-16 lg:pt-20">
-          <motion.div
-            variants={containerVariants}
-            initial={reduceMotion ? false : "hidden"}
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+          <div
             className="grid grid-cols-1 gap-10 pb-14 md:grid-cols-3 md:gap-8 lg:gap-12"
           >
             {/* Brand */}
-            <motion.div variants={itemVariants} className="md:pr-8">
+            <motion.div
+              variants={itemVariants}
+              initial={reduceMotion ? false : "hidden"}
+              animate={reduceMotion ? "visible" : undefined}
+              whileInView={reduceMotion ? undefined : "visible"}
+              viewport={{ once: true, amount: 0.15 }}
+              className="md:pr-8"
+            >
               <a href="#home" className="inline-block">
                 <Image
                   src={footer.logo.src}
                   alt={footer.logo.alt}
                   width={2170}
                   height={725}
-                  className="h-auto w-[180px] sm:w-[230px] lg:w-[220px]"
+                  className="h-auto w-[152px] sm:w-[190px] lg:w-[190px]"
                 />
               </a>
 
@@ -80,6 +73,10 @@ export default function Footer() {
             {/* Location */}
             <motion.div
               variants={itemVariants}
+              initial={reduceMotion ? false : "hidden"}
+              animate={reduceMotion ? "visible" : undefined}
+              whileInView={reduceMotion ? undefined : "visible"}
+              viewport={{ once: true, amount: 0.15 }}
               className="border-white/40 md:border-l md:px-8 lg:px-12"
             >
               <div className="flex items-center gap-4">
@@ -88,14 +85,19 @@ export default function Footer() {
                 </h3>
               </div>
 
-              <p className="mt-5 max-w-[360px] text-base leading-8 text-slate-100">
-                {footer.location}
+              <p className="mt-4 flex max-w-[360px] items-start gap-3 text-base leading-7 text-slate-100">
+                <FaMapMarkerAlt aria-hidden="true" className="mt-1 shrink-0 text-lg text-[#00e5f0]" />
+                <span>{footer.location}</span>
               </p>
             </motion.div>
 
             {/* Contact information */}
             <motion.div
               variants={itemVariants}
+              initial={reduceMotion ? false : "hidden"}
+              animate={reduceMotion ? "visible" : undefined}
+              whileInView={reduceMotion ? undefined : "visible"}
+              viewport={{ once: true, amount: 0.15 }}
               className="border-white/40 md:border-l md:pl-8 lg:pl-12"
             >
               <h3 className="font-montserrat text-lg font-semibold sm:text-xl">
@@ -130,21 +132,13 @@ export default function Footer() {
                 </a>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Bottom footer */}
-          <div className="flex flex-col items-center justify-between gap-5 border-t border-white/50 py-8 text-center lg:flex-row lg:text-left">
-            <p className="text-sm font-medium  text-slate-100 font-montserrat">
-              {footer.copyright}{" "}
-              <span className=" text-[#00e5f0]">
-                {footer.brandName}
-              </span>
-              . {footer.rights}
-            </p>
-
-            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-white/50 py-6 lg:gap-5 lg:py-8 text-center lg:flex-row lg:text-left">
+            <nav aria-label="Footer navigation" className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 lg:gap-x-5">
               {footer.links.map((link, index) => (
-                <div key={`${link.href}-${index}`} className="flex items-center gap-5">
+                <div key={`${link.href}-${index}`} className="flex items-center gap-3 lg:gap-5">
                   {index > 0 && (
                     <span className="text-[#00e5f0]" aria-hidden="true">
                       |
@@ -160,6 +154,14 @@ export default function Footer() {
                 </div>
               ))}
             </nav>
+
+            <p className="font-montserrat text-sm font-medium text-slate-100 lg:order-first">
+              {footer.copyright}{" "}
+              <span className=" text-[#00e5f0]">
+                {footer.brandName}
+              </span>
+              . {footer.rights}
+            </p>
           </div>
         </div>
       </Container>

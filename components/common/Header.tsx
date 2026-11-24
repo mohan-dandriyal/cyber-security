@@ -89,7 +89,7 @@ export default function Header() {
                 }`}
         >
             <Container>
-                <div className="relative z-10 flex items-center justify-between gap-3 py-4 xl:gap-5">
+                <div className="relative z-10 flex items-center justify-between gap-3 py-2 sm:py-3 xl:gap-5">
 
                     {/* Logo */}
                     <a
@@ -102,8 +102,9 @@ export default function Header() {
                             alt={header.logoAlt}
                             width={2170}
                             height={725}
-                            priority
-                            className="h-auto w-[180px] sm:w-[230px] lg:w-[220px]"
+                            loading="eager"
+                            sizes="(min-width: 1024px) 208px, (min-width: 640px) 184px, 152px"
+                            className="block h-auto w-[152px] sm:w-[184px] lg:w-[190px]"
                         />
                     </a>
 

@@ -21,16 +21,6 @@ const services = ServicesData;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const containerVariants: Variants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.12,
-            delayChildren: 0.15,
-        },
-    },
-};
-
 const cardVariants: Variants = {
     hidden: {
         opacity: 0,
@@ -75,22 +65,22 @@ export default function ServicesSection() {
                     className="mx-auto mb-14 max-w-5xl text-center"
                 >
                     {/* Subtitle */}
-                    <div className="mb-6 flex items-center justify-center gap-4">
-                        <span className="h-[2px] w-14 bg-[#00e5f0] sm:w-20" />
+                    <div className="mb-6 flex items-center justify-center gap-2 sm:gap-4">
+                        <span className="h-[2px] w-8 bg-[#00e5f0] sm:w-20" />
 
-                        <FaShieldAlt className="text-2xl text-[#00e5f0]" />
+                        <FaShieldAlt className="shrink-0 text-lg text-[#00e5f0] sm:text-2xl" />
 
-                        <SectionTagline className="">
+                        <SectionTagline className="whitespace-nowrap">
                             {services.subtitle}
                         </SectionTagline>
 
-                        <span className="h-[2px] w-14 bg-[#00e5f0] sm:w-20" />
+                        <span className="h-[2px] w-8 bg-[#00e5f0] sm:w-20" />
                     </div>
 
 
-                    <SectionTitle className="max-w-[900px] mx-auto">
+                    <SectionTitle className={`mx-auto max-w-[900px] `}>
                         {services.title1} {" "}
-                        <SectionHighlight>
+                        <SectionHighlight className="max-sm:block">
                             {services.title2}
                         </SectionHighlight>
                     </SectionTitle>
@@ -104,11 +94,7 @@ export default function ServicesSection() {
                 </motion.div>
 
                 {/* Services grid */}
-                <motion.div
-                    variants={containerVariants}
-                    initial={reduceMotion ? false : "hidden"}
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
+                <div
                     className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
                 >
                     {services.services.map((service) => {
@@ -117,9 +103,11 @@ export default function ServicesSection() {
                         return (
                             <motion.article
                                 key={service.id}
-                                variants={
-                                    reduceMotion ? undefined : cardVariants
-                                }
+                                variants={cardVariants}
+                                initial={reduceMotion ? false : "hidden"}
+                                animate={reduceMotion ? "visible" : undefined}
+                                whileInView={reduceMotion ? undefined : "visible"}
+                                viewport={{ once: true, amount: 0.15 }}
                                 whileHover={
                                     reduceMotion
                                         ? undefined
@@ -173,7 +161,7 @@ export default function ServicesSection() {
                             </motion.article>
                         );
                     })}
-                </motion.div>
+                </div>
             </div>
             </Container>
         </section>

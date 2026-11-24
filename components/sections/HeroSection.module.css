@@ -112,3 +112,7 @@
   .leftArc { left: calc(var(--arc-size) * -0.92); }
   .rightArc { right: calc(var(--arc-size) * -0.92); }
 }
+
+@media (max-width: 639px) {
+  .tagline.tagline { font-size: clamp(0.625rem, 2.9vw, 0.75rem); }
+}

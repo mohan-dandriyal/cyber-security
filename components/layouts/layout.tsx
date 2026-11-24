@@ -47,7 +47,7 @@ export const SectionTitle = ({
       className={`
         font-montserrat
         my-4
-        text-[clamp(24px,3.4vw,58px)]
+        text-[clamp(20px,3.2vw,50px)]
         font-bold
         sm:font-semibold
         leading-[1.17]

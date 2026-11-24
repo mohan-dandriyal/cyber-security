@@ -6,7 +6,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { motion, } from "framer-motion";
 import { FaShieldAlt } from "react-icons/fa";
 import { HeroData } from "@/types/template.type";
-import { SectionTagline, Container, PrimaryButton, OutlineButton } from "../layouts/layout";
+import { SectionTagline, Container } from "../layouts/layout";
 import { AnimatedText } from "../common/AnimatedContent";
 import styles from "./HeroSection.module.css";
 
@@ -29,7 +29,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative isolate flex min-h-[680px] items-center justify-center overflow-hidden border-b border-cyan-400/10 bg-[#020e24] py-14 font-poppins lg:min-h-[780px]"
+      className="relative isolate flex min-h-[100vh] items-center justify-center overflow-hidden border-b border-cyan-400/10 bg-[#020e24] py-14 font-poppins"
     >
 
       <HeroBackDesignPattern />
@@ -40,36 +40,19 @@ export default function HeroSection() {
 
           {/* Subtitle */}
           <motion.div {...reveal(0.1)}>
-            <SectionTagline className="inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-cyan-400/80 bg-[#061c37]/80 px-5 py-3 shadow-[inset_0_0_18px_rgba(0,229,240,0.08)] sm:px-8">
-              <FaShieldAlt className="shrink-0 text-lg text-cyan-400" />
-              {h.subtitle}
+            <SectionTagline className={`inline-flex max-w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-full border border-cyan-400/80 bg-[#061c37]/80 px-2 py-3 shadow-[inset_0_0_18px_rgba(0,229,240,0.08)] sm:gap-3 sm:px-8 ${styles.tagline}`}>
+              <FaShieldAlt className="shrink-0 text-xs text-cyan-400 sm:text-lg" />
+              {h.subtitle.trim()}
             </SectionTagline>
           </motion.div>
 
           {/* Heading */}
           <motion.div {...reveal(0.25)}>
-            <h1 className="mx-auto mt-10 max-w-5xl font-poppins text-[clamp(2.1rem,4.7vw,5.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
+            <h1 className="mx-auto mt-10 max-w-5xl font-poppins text-[clamp(2.1rem,4.4vw,4.5rem)] font-semibold leading-[1.1] tracking-tight text-white">
               <span className="block"><AnimatedText>{h.title1}</AnimatedText></span>{" "}
 
-              <span className="relative inline-block text-[#00e5f0]">
+              <span className="inline-block text-[#00e5f0]">
                 <AnimatedText>{h.title2}</AnimatedText>
-
-                {/* Animated underline */}
-                <motion.span
-                  initial={
-                    reduceMotion
-                      ? false
-                      : { scaleX: 0, opacity: 0 }
-                  }
-                  animate={{ scaleX: 1, opacity: 1 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 1,
-                    ease: EASE,
-                  }}
-                  style={{ transformOrigin: "left" }}
-                  className="absolute -bottom-4 right-[12%] h-[5px] w-[24%] -rotate-3 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(0,229,240,0.5)]"
-                />
               </span>
             </h1>
           </motion.div>
@@ -81,19 +64,6 @@ export default function HeroSection() {
           >
             {h.description}
           </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div
-            {...reveal(0.55)}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-7"
-          >
-            <PrimaryButton href={h.cta1.href} className="min-w-[185px] sm:min-w-[230px]">
-              {h.cta1.label}
-            </PrimaryButton>
-            <OutlineButton href={h.cta2.href} className="min-w-[185px] sm:min-w-[230px]">
-              {h.cta2.label}
-            </OutlineButton>
-          </motion.div>
         </div>
       </Container>
     </section>
